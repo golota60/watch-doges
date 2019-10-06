@@ -9,3 +9,8 @@
   margin: 10px;
 }
 
+@media (max-width:480px){
+  .App{
+    overflow-y: hidden
+  }
+}
