@@ -3,48 +3,62 @@ import './App.css';
 import { Button, Spinner } from 'reactstrap';
 import RenderImage from './RenderImage.js';
 
-class App extends React.Component{
-  state={
-    imgURL:'',
+class App extends React.Component {
+  state = {
+    imgURL: '',
     endpoint: 'api/shibes',
-  }
+  };
 
-  fetchData = async() => {
-    const data = await fetch(`https://cors-anywhere.herokuapp.com/http://shibe.online/${this.state.endpoint}`);
+  fetchData = async () => {
+    const data = await fetch(
+      `https://cors-anywhere.herokuapp.com/http://shibe.online/${this.state.endpoint}`,
+    );
     const json = await data.json();
     this.setState({
-      imgURL:json,
-    })
-  }
+      imgURL: json,
+    });
+  };
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetchData();
   }
 
-  buttonClick = async(type) => {
+  buttonClick = async type => {
     await this.setState({
-      imgURL:'',
+      imgURL: '',
       endpoint: type,
-    })
+    });
     this.fetchData();
-  }
+  };
 
-  render(){
-    return(
-      <div className='App'>
+  render() {
+    return (
+      <div className="App">
         <div>
-          <Button color='success' className='_button' onClick={() => this.buttonClick('api/shibes')}>
+          <Button
+            color="success"
+            className="_button"
+            onClick={() => this.buttonClick('api/shibes')}
+          >
             I want new shibe!
           </Button>
-          <Button color='success' className='_button' onClick={() => this.buttonClick('api/cats')}>
+          <Button
+            color="success"
+            className="_button"
+            onClick={() => this.buttonClick('api/cats')}
+          >
             I want cate!
           </Button>
         </div>
-        {this.state.imgURL!=='' ? (<div>
-          <RenderImage URL={this.state.imgURL}></RenderImage>
-        </div>) : (<div>
-          <Spinner color="success" />
-        </div>)}
+        {this.state.imgURL !== '' ? (
+          <div>
+            <RenderImage URL={this.state.imgURL}></RenderImage>
+          </div>
+        ) : (
+          <div>
+            <Spinner color="success" />
+          </div>
+        )}
       </div>
     );
   }
