@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
-import { Button, Spinner } from 'reactstrap';
+import './App.scss';
+import './styles.scss';
 import RenderImage from './RenderImage.js';
 
 class App extends React.Component {
@@ -35,20 +35,18 @@ class App extends React.Component {
     return (
       <div className="App">
         <div>
-          <Button
-            color="success"
-            className="_button"
+          <button
+            className="fuller-button pink"
             onClick={() => this.buttonClick('api/shibes')}
           >
-            I want new shibe!
-          </Button>
-          <Button
-            color="success"
-            className="_button"
+            I WANT SHIBE!
+          </button>
+          <button
+            className="fuller-button pink"
             onClick={() => this.buttonClick('api/cats')}
           >
-            I want cate!
-          </Button>
+            I WANT CATE!
+          </button>
         </div>
         {this.state.imgURL !== '' ? (
           <div>
@@ -56,7 +54,7 @@ class App extends React.Component {
           </div>
         ) : (
           <div>
-            <Spinner color="success" />
+            <div className="loader">Loading...</div>
           </div>
         )}
       </div>
