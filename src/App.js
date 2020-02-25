@@ -1,65 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import './styles.scss';
-import RenderImage from './RenderImage.js';
 
-class App extends React.Component {
-  state = {
+const App = () => {
+  const [imgData, setImgData] = useState({
     imgURL: '',
     endpoint: 'api/shibes',
-  };
+  });
 
-  fetchData = async () => {
-    const data = await fetch(
-      `https://cors-anywhere.herokuapp.com/http://shibe.online/${this.state.endpoint}`,
-    );
-    const json = await data.json();
-    this.setState({
-      imgURL: json,
-    });
-  };
+  useEffect(() => {
+    fetchData('api/shibes');
+  }, [])
 
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  buttonClick = async type => {
-    await this.setState({
+  const setImgUrl = async (url) => {
+    await setImgData({
       imgURL: '',
-      endpoint: type,
+      endpoint: url,
     });
-    this.fetchData();
+    fetchData(url);
   };
 
-  render() {
-    return (
-      <div className="App">
-        <div>
-          <button
-            className="fuller-button pink"
-            onClick={() => this.buttonClick('api/shibes')}
-          >
-            I WANT SHIBE!
-          </button>
-          <button
-            className="fuller-button pink"
-            onClick={() => this.buttonClick('api/cats')}
-          >
-            I WANT CATE!
-          </button>
-        </div>
-        {this.state.imgURL !== '' ? (
-          <div>
-            <RenderImage URL={this.state.imgURL}></RenderImage>
-          </div>
-        ) : (
-          <div>
-            <div className="loader">Loading...</div>
-          </div>
-        )}
+  const fetchData = async (fetchUrl) => {
+    const data = await fetch(`https://cors-anywhere.herokuapp.com/http://shibe.online/${fetchUrl}`);
+    setImgData({
+      imgURL: await data.json(),
+    });
+  };
+
+  return (
+    <div className="App">
+      <div>
+        <button
+          className="generic-button pink"
+          onClick={() => setImgUrl('api/shibes')}>
+          I WANT SHIBE!
+        </button>
+        <button
+          className="generic-button pink"
+          onClick={() => setImgUrl('api/cats')}>
+          I WANT CATE!
+        </button>
       </div>
-    );
-  }
+      {imgData.imgURL ? <img src={imgData.imgURL} alt="a dog" className="_image"></img> : <div className="loader"></div>}
+    </div>
+  );
 }
 
 export default App;
