@@ -1,0 +1,25 @@
+@import './variables.scss';
+
+.App {
+  text-align: center;
+  background: $background-color;
+  height: 100vh;
+
+  button {
+    margin: 30px;
+  }
+}
+
+.loader,
+.loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+
+._image{
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: 10px;
+}
+
